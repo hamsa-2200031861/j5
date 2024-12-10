@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Notifications</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eef3f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #454545;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .navbar .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .navbar .nav-buttons button {
+            background-color: #454545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .navbar .nav-buttons button:hover {
+            background-color: #808080;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group input, 
+        .form-group textarea, 
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            resize: none;
+        }
+
+        .btn {
+            background-color: #454545;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .btn:hover {
+            background-color: #808080;
+        }
+
+        .notifications {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .notification-item {
+            border-bottom: 1px solid #ccc;
+            padding: 10px 0;
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .notification-item h3 {
+            margin: 0 0 5px;
+            font-size: 1.2rem;
+        }
+
+        .notification-item p {
+            margin: 5px 0;
+        }
+
+        .notification-item small {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>Send Notifications</h1>
+        <div class="nav-buttons">
+            <button onclick="window.location.href='home.html'">Home</button>
+            <button onclick="window.location.href='logout.html'">Logout</button>
+            <button onclick="window.history.back()">Back</button>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="form-container">
+            <h2>Send Notification to Students</h2>
+            <form id="notificationForm">
+                <div class="form-group">
+                    <label for="jobTitle">Job Title</label>
+                    <input type="text" id="jobTitle" name="jobTitle" placeholder="Enter job title" required>
+                </div>
+                <div class="form-group">
+                    <label for="jobDetails">Job Details</label>
+                    <textarea id="jobDetails" name="jobDetails" rows="4" placeholder="Enter job description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="targetAudience">Target Audience</label>
+                    <select id="targetAudience" name="targetAudience" required>
+                        <option value="">-- Select Target Audience --</option>
+                        <option value="all">All Students</option>
+                        <option value="cs">Computer Science</option>
+                        <option value="it">Information Technology</option>
+                        <option value="mech">Mechanical</option>
+                        <option value="civil">Civil</option>
+                        <option value="ece">Electronics and Communication</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="applicationDeadline">Application Deadline</label>
+                    <input type="date" id="applicationDeadline" name="applicationDeadline" required>
+                </div>
+                <button type="submit" class="btn">Send Notification</button>
+            </form>
+        </div>
+
+        <div class="notifications" id="notifications">
+            <h2>Sent Notifications</h2>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('notificationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const jobTitle = document.getElementById('jobTitle').value;
+            const jobDetails = document.getElementById('jobDetails').value;
+            const targetAudience = document.getElementById('targetAudience').value;
+            const applicationDeadline = document.getElementById('applicationDeadline').value;
+
+            if (jobTitle && jobDetails && targetAudience && applicationDeadline) {
+                const notificationsContainer = document.getElementById('notifications');
+
+                const notificationItem = document.createElement('div');
+                notificationItem.classList.add('notification-item');
+
+                notificationItem.innerHTML = `
+                    <h3>${jobTitle}</h3>
+                    <p>${jobDetails}</p>
+                    <p><strong>Target Audience:</strong> ${targetAudience}</p>
+                    <p><strong>Application Deadline:</strong> ${applicationDeadline}</p>
+                    <small>Notification Sent!</small>
+                `;
+
+                notificationsContainer.appendChild(notificationItem);
+
+                document.getElementById('notificationForm').reset();
+                alert('Notification sent successfully!');
+            } else {
+                alert('Please fill all fields before submitting!');
+            }
+        });
+    </script>
+</body>
+</html>

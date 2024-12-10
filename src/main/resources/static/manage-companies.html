@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Companies - Placement Officer</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fc;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #454545;
+            padding: 10px 20px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            margin-left: -50px; /* Adjust this value for desired left shift */
+        }
+
+        .logout {
+            margin-left: auto;
+        }
+
+        .content {
+            margin: 80px 20px 20px 20px;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .btn {
+            background-color: #454545;
+            color: white;
+            padding: 5px 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #808080;
+        }
+
+        .btn-delete {
+            background-color: #d9534f;
+        }
+
+        .btn-delete:hover {
+            background-color: #c9302c;
+        }
+    </style>
+</head>
+<body>
+     <div class="navbar">
+        <h1>Placement Tracker</h1>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="placement-officer-dashboard.html">Back</a>
+            <a href="login.html" class="logout">Logout</a>
+        </div>
+    </div>
+
+    <div class="content">
+        <h2>Manage Companies</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Company ID</th>
+                    <th>Company Name</th>
+                    <th>Email</th>
+                    <th>Contact Number</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="companyTable">
+                <tr>
+                    <td>001</td>
+                    <td>Google</td>
+                    <td>vamsi@google.com</td>
+                    <td>+91 7648378678</td>
+                    <td>
+                        <button class="btn btn-edit" onclick="editCompany(this)">Edit</button>
+                        <button class="btn btn-delete" onclick="deleteCompany(this)">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>002</td>
+                    <td>Microsoft</td>
+                    <td>krishana@microsoft.com</td>
+                    <td>+91 9847563678</td>
+                    <td>
+                        <button class="btn btn-edit" onclick="editCompany(this)">Edit</button>
+                        <button class="btn btn-delete" onclick="deleteCompany(this)">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>003</td>
+                    <td>Amazon</td>
+                    <td>kumar@amazon.com</td>
+                    <td>+91 9856753256</td>
+                    <td>
+                        <button class="btn btn-edit" onclick="editCompany(this)">Edit</button>
+                        <button class="btn btn-delete" onclick="deleteCompany(this)">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>004</td>
+                    <td>Apple</td>
+                    <td>lalithaMohan@apple.com</td>
+                    <td>+91 8976587657</td>
+                    <td>
+                        <button class="btn btn-edit" onclick="editCompany(this)">Edit</button>
+                        <button class="btn btn-delete" onclick="deleteCompany(this)">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>005</td>
+                    <td>Facebook</td>
+                    <td>mohankumar@facebook.com</td>
+                    <td>+91 9456362736</td>
+                    <td>
+                        <button class="btn btn-edit" onclick="editCompany(this)">Edit</button>
+                        <button class="btn btn-delete" onclick="deleteCompany(this)">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>006</td>
+                    <td>TCS</td>
+                    <td>haritcs@tcs.com</td>
+                    <td>+91 8721094856</td>
+                    <td>
+                        <button class="btn btn-edit" onclick="editCompany(this)">Edit</button>
+                        <button class="btn btn-delete" onclick="deleteCompany(this)">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>007</td>
+                    <td>Infosys</td>
+                    <td>bhavani@infosys.com</td>
+                    <td>+91 9840123958</td>
+                    <td>
+                        <button class="btn btn-edit" onclick="editCompany(this)">Edit</button>
+                        <button class="btn btn-delete" onclick="deleteCompany(this)">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>008</td>
+                    <td>Wipro</td>
+                    <td>priyavamsi@wipro.com</td>
+                    <td>+91 9526546781</td>
+                    <td>
+                        <button class="btn btn-edit" onclick="editCompany(this)">Edit</button>
+                        <button class="btn btn-delete" onclick="deleteCompany(this)">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>009</td>
+                    <td>Capgemini</td>
+                    <td>lisa@capgemini.com</td>
+                    <td>+91 8463728165</td>
+                    <td>
+                        <button class="btn btn-edit" onclick="editCompany(this)">Edit</button>
+                        <button class="btn btn-delete" onclick="deleteCompany(this)">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>010</td>
+                    <td>Deloitte</td>
+                    <td>priyakirshna@deloitte.com</td>
+                    <td>+91 9847382918</td>
+                    <td>
+                        <button class="btn btn-edit" onclick="editCompany(this)">Edit</button>
+                        <button class="btn btn-delete" onclick="deleteCompany(this)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Edit Company Function
+        function editCompany(button) {
+            const row = button.closest('tr');
+            const cells = row.querySelectorAll('td');
+            const companyId = cells[0].textContent;
+            const name = cells[1].textContent;
+            const email = cells[2].textContent;
+            const contact = cells[3].textContent;
+
+            const newName = prompt("Edit Company Name:", name);
+            const newEmail = prompt("Edit Company Email:", email);
+            const newContact = prompt("Edit Contact Number:", contact);
+
+            if (newName !== null) cells[1].textContent = newName;
+            if (newEmail !== null) cells[2].textContent = newEmail;
+            if (newContact !== null) cells[3].textContent = newContact;
+
+            alert(`Company ID ${companyId} updated successfully!`);
+        }
+
+        // Delete Company Function
+        function deleteCompany(button) {
+            const row = button.closest('tr');
+            const companyId = row.querySelector('td').textContent;
+
+            const confirmDelete = confirm(`Are you sure you want to delete Company ID ${companyId}?`);
+            if (confirmDelete) {
+                row.remove();
+                alert(`Company ID ${companyId} deleted successfully!`);
+            }
+        }
+    </script>
+</body>
+</html>

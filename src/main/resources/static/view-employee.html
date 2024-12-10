@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Employers - Placement Portal</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .back-button {
+      padding: 8px 10px;
+      background-color: #454545;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 1em;
+      transition: background-color 0.3s ease;
+      top: -50px; 
+    }
+    .back-button:hover {
+      background-color: #808080;
+      }
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .employer-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .employer-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+    .employer-card:hover {
+      transform: scale(1.05);
+    }
+    .employer-name {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #333;
+      margin: 10px 0;
+    }
+    .employer-role {
+      font-weight: bold;
+      color: #454545;
+    }
+    .employer-details, .employer-contact {
+      display: none; /* Initially hidden */
+      font-size: 1em;
+      color: #555;
+      margin-top: 10px;
+    }
+    .employer-contact {
+      color: #454545;
+    }
+    .view-details-btn {
+      padding: 10px 20px;
+      background-color: #454545;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+      margin-top: 10px;
+      transition: background-color 0.2s;
+    }
+    .view-details-btn:hover {
+      background-color: #808080;
+     
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>View Employers</h1>
+      <p>Explore the list of employers for placement opportunities. Below are details about the colleges and their roles.</p>
+      <button onclick="goToDashboard()" class="back-button">Back to Admin Dashboard</button>
+  
+    </div>
+
+    <!-- Employer List -->
+    <div class="employer-list">
+      <!-- Employer Card 1 - ABC College of Engineering -->
+      <div class="employer-card" id="employer-1">
+        <div class="employer-name">ABC College of Engineering</div>
+        <p>Role: <span class="employer-role">HOD</span></p>
+        <p>College Name: ABC College of Engineering</p>
+
+        <!-- Hidden Employer Details -->
+        <div class="employer-details">
+          <p>Experience: 10+ years in the education field</p>
+        </div>
+        <div class="employer-contact">
+          <p>Contact: hod@abcce.edu</p>
+          <p>Phone: 123-456-7890</p>
+        </div>
+        
+        <button class="view-details-btn" onclick="toggleDetails('employer-1')">View Details</button>
+      </div>
+
+      <!-- Employer Card 2 - XYZ Institute of Technology -->
+      <div class="employer-card" id="employer-2">
+        <div class="employer-name">XYZ Institute of Technology</div>
+        <p>Role: <span class="employer-role">Assistant Professor</span></p>
+        <p>College Name: XYZ Institute of Technology</p>
+
+        <!-- Hidden Employer Details -->
+        <div class="employer-details">
+          <p>Experience: 5 years in teaching and placement</p>
+        </div>
+        <div class="employer-contact">
+          <p>Contact: assistantprof@xyzit.edu</p>
+          <p>Phone: 987-654-3210</p>
+        </div>
+        
+        <button class="view-details-btn" onclick="toggleDetails('employer-2')">View Details</button>
+      </div>
+
+      <!-- Employer Card 3 - LMN College of Science -->
+      <div class="employer-card" id="employer-3">
+        <div class="employer-name">LMN College of Science</div>
+        <p>Role: <span class="employer-role">Professor</span></p>
+        <p>College Name: LMN College of Science</p>
+
+        <!-- Hidden Employer Details -->
+        <div class="employer-details">
+          <p>Experience: 15 years in academics and industry collaboration</p>
+        </div>
+        <div class="employer-contact">
+          <p>Contact: professor@lmncollege.edu</p>
+          <p>Phone: 111-222-3333</p>
+        </div>
+        
+        <button class="view-details-btn" onclick="toggleDetails('employer-3')">View Details</button>
+      </div>
+
+      <!-- New Employee Cards for ABC College of Engineering -->
+      <!-- HR Role -->
+      <div class="employer-card" id="employer-4">
+        <div class="employer-name">ABC College of Engineering - HR</div>
+        <p>Role: <span class="employer-role">HR Manager</span></p>
+        <p>College Name: ABC College of Engineering</p>
+
+        <!-- Hidden Employer Details -->
+        <div class="employer-details">
+          <p>Experience: 8+ years in HR management</p>
+        </div>
+        <div class="employer-contact">
+          <p>Contact: hr@abcce.edu</p>
+          <p>Phone: 123-987-6540</p>
+        </div>
+        
+        <button class="view-details-btn" onclick="toggleDetails('employer-4')">View Details</button>
+      </div>
+
+      <!-- Manager Role -->
+      <div class="employer-card" id="employer-5">
+        <div class="employer-name">ABC College of Engineering - Manager</div>
+        <p>Role: <span class="employer-role">Placement Manager</span></p>
+        <p>College Name: ABC College of Engineering</p>
+
+        <!-- Hidden Employer Details -->
+        <div class="employer-details">
+          <p>Experience: 12 years in placement management</p>
+        </div>
+        <div class="employer-contact">
+          <p>Contact: manager@abcce.edu</p>
+          <p>Phone: 234-567-8901</p>
+        </div>
+        
+        <button class="view-details-btn" onclick="toggleDetails('employer-5')">View Details</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  // Function to redirect to the admin dashboard
+  function goToDashboard() {
+    window.location.href = 'admin-dashboard.html'; // Replace with the actual path to your admin dashboard page
+  }
+
+    // Function to toggle employer details visibility
+    function toggleDetails(employerId) {
+      const employerCard = document.getElementById(employerId);
+      const details = employerCard.querySelector('.employer-details');
+      const contact = employerCard.querySelector('.employer-contact');
+      const button = employerCard.querySelector('.view-details-btn');
+
+      // Check current state and toggle visibility
+      if (details.style.display === "none" || details.style.display === "") {
+        details.style.display = "block";
+        contact.style.display = "block";
+        button.textContent = "Hide Details"; // Change button text
+      } else {
+        details.style.display = "none";
+        contact.style.display = "none";
+        button.textContent = "View Details"; // Reset button text
+      }
+    }
+
+    // Initialize the display states explicitly
+    document.querySelectorAll('.employer-details, .employer-contact').forEach(el => {
+      el.style.display = "none";
+    });
+  </script>
+</body>
+</html>

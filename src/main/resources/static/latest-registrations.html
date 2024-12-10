@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Manage User Registrations</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      width: 80%;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .registration-list, .add-user-form {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+    .submit-btn {
+      background-color: #454545;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .submit-btn:hover {
+      background-color: #808080;
+    }
+    .user-listing {
+      margin-bottom: 15px;
+    }
+    .user-details {
+      font-size: 1.1em;
+      margin: 5px 0;
+    }
+    .user-name {
+      font-weight: bold;
+    }
+    .back-btn {
+      background-color: #454545;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+    .back-btn:hover {
+      background-color: #808080;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Back Button to Admin Page -->
+    <button class="back-btn" onclick="window.history.back()">Back to Admin Page</button>
+
+    <div class="header">
+      <h1>Manage User Registrations</h1>
+      <p>Admins can view the latest user registrations and add new users manually.</p>
+    </div>
+
+    <!-- Form for Adding New User -->
+    <div class="add-user-form">
+      <h2>Add a New User</h2>
+      <form id="add-user-form">
+        <div class="form-group">
+          <label for="user-name">Full Name</label>
+          <input type="text" id="user-name" name="user-name" placeholder="Enter full name" required>
+        </div>
+        <div class="form-group">
+          <label for="user-email">Email Address</label>
+          <input type="email" id="user-email" name="user-email" placeholder="Enter email address" required>
+        </div>
+        <div class="form-group">
+          <label for="user-role">User Role</label>
+          <select id="user-role" name="user-role" required>
+            <option value="Admin">Admin</option>
+            <option value="User">User</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="user-status">Status</label>
+          <select id="user-status" name="user-status" required>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+        <button type="submit" class="submit-btn">Add User</button>
+      </form>
+    </div>
+
+    <!-- Latest User Registrations -->
+    <div class="registration-list">
+      <h2>Latest User Registrations</h2>
+
+      <!-- Example of Registered Users -->
+      <div class="user-listing">
+        <div class="user-details">
+          <span class="user-name">Niharika</span> | <span>Email: niharika@gmail.com</span> | 
+          <span>Role: Admin</span> | <span>Status: Active</span>
+        </div>
+        <div class="user-details">
+          Registered on: Dec 1, 2024
+        </div>
+      </div>
+
+      <div class="user-listing">
+        <div class="user-details">
+          <span class="user-name">Harshitha</span> | <span>Email: harshu@gmail.com</span> | 
+          <span>Role: User</span> | <span>Status: Active</span>
+        </div>
+        <div class="user-details">
+          Registered on: Dec 3, 2024
+        </div>
+      </div>
+
+      <div class="user-listing">
+        <div class="user-details">
+          <span class="user-name">Hamsa</span> | <span>Email: hamsavahini@gmail.com</span> | 
+          <span>Role: User</span> | <span>Status: Inactive</span>
+        </div>
+        <div class="user-details">
+          Registered on: Dec 5, 2024
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('add-user-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      // Get form data
+      const userName = document.getElementById('user-name').value;
+      const userEmail = document.getElementById('user-email').value;
+      const userRole = document.getElementById('user-role').value;
+      const userStatus = document.getElementById('user-status').value;
+
+      // Get current date
+      const currentDate = new Date().toLocaleDateString();
+
+      // Create a new user listing
+      const userListing = document.createElement('div');
+      userListing.classList.add('user-listing');
+      userListing.innerHTML = ` 
+        <div class="user-details">
+          <span class="user-name">${userName}</span> | <span>Email: ${userEmail}</span> | 
+          <span>Role: ${userRole}</span> | <span>Status: ${userStatus}</span>
+        </div>
+        <div class="user-details">
+          Registered on: ${currentDate}
+        </div>
+      `;
+
+      // Append the new user listing to the registration list
+      document.querySelector('.registration-list').appendChild(userListing);
+
+      // Reset the form
+      document.getElementById('add-user-form').reset();
+    });
+  </script>
+</body>
+</html>

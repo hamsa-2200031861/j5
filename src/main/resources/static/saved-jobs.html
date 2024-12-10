@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Jobs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+            
+        }
+
+        .navbar {
+            background-color: #454545;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .navbar h1 {
+            color: white;
+            margin: 0;
+        }
+
+        .navbar a, .navbar button {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 8px 16px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .navbar a {
+            margin-right: 10px;
+        }
+
+        .navbar a:hover, .navbar button:hover {
+            background-color: #666666;
+            border-radius: 5px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .job {
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .job h3 {
+            margin-bottom: 10px;
+            color: #454545;
+        }
+
+        .job p {
+            color: #666;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #f4f7fc;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <h1>Saved Jobs</h1>
+        <div>
+            <a href="index.html">Home</a>
+            <a href="student-dashboard.html">Back</a>
+            <button onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <div class="container" id="savedJobsContainer">
+        <!-- Jobs will be displayed here dynamically -->
+    </div>
+
+    <footer>
+        <a href="job-opportunities.html">Back to Job Opportunities</a>
+    </footer>
+
+    <script>
+        function loadSavedJobs() {
+            // Get saved jobs from localStorage
+            const savedJobs = JSON.parse(localStorage.getItem('savedJobs')) || [];
+
+            // Get the container to display the jobs
+            const savedJobsContainer = document.getElementById('savedJobsContainer');
+
+            if (savedJobs.length === 0) {
+                savedJobsContainer.innerHTML = '<p>No jobs saved yet.</p>';
+            } else {
+                savedJobs.forEach(job => {
+                    const jobElement = document.createElement('div');
+                    jobElement.className = 'job';
+                    jobElement.innerHTML = `
+                        <h3>${job.title}</h3>
+                        <p>Company: ${job.company}</p>
+                    `;
+                    savedJobsContainer.appendChild(jobElement);
+                });
+            }
+        }
+
+        // Logout function
+        function logout() {
+            // Implement logout functionality
+            alert('Logging out...');
+            window.location.href = "login.html";  // Redirect to login page
+        }
+        // Load saved jobs when the page loads
+        window.onload = loadSavedJobs;
+    </script>
+
+</body>
+</html>

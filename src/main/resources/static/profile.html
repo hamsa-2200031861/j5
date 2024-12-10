@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            
+        }
+        .navbar {
+            background-color: #454545;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            font-weight:bold;
+        }
+
+        .navbar a:hover {
+            background-color: #808080;
+            border-radius: 5px;
+        }
+        
+        
+        .profile-container {
+    max-width: 700px; /* Increased width */
+    margin: 0px auto 20px; /* Added a margin-top of 60px */
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.5s ease-out forwards;
+}
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .profile-details {
+            margin-bottom: 20px;
+        }
+
+        .profile-details label {
+            display: block;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .profile-details p {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .edit-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #454545;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .edit-button:hover {
+            background-color: #808080;
+        }
+
+        /* Modal styles */
+        .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 60px;
+}
+
+	.modal-content {
+	    background-color: white;
+	    margin: 5% auto;
+	    padding: 20px;
+	    border: 1px solid #888;
+	    width: 80%;
+	    max-width: 400px;
+	    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	    border-radius: 10px;
+	    transform: translateY(-20px); /* Starting position for slide effect */
+	    opacity: 0; /* Start with opacity 0 for fade-in effect */
+	    animation: slideIn 0.4s forwards; /* Apply slide and fade-in animation */
+	}
+
+/* Slide-in animation */
+	@keyframes slideIn {
+	    to {
+	        transform: translateY(0); /* End position for slide */
+	        opacity: 1; /* End opacity */
+	    }
+	}
+
+        .modal-content input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            cursor: pointer;
+        }
+
+        .save-button {
+            padding: 10px 20px;
+            background-color: #454545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .save-button:hover {
+            background-color: #808080;
+        }
+        .enrollment-container {
+            margin-top: 20px;
+        }
+
+        .enrollment-container h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .enrolled-jobs {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .enrolled-jobs li {
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .job-title {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .job-buttons button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .remove-button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+        }
+
+        .remove-button:hover {
+            background-color: #c82333;
+        }
+
+        .details-button {
+            background-color: #454545;
+            color: white;
+            border: none;
+        }
+
+        .details-button:hover {
+            background-color: #808080;
+        }
+        
+    </style>
+</head>
+<body>
+  <div class="navbar">
+        <a href="#">PLACEMENT TRACKER</a>
+        <div>
+            <a href="index.html">Home</a>
+            <a href="javascript:history.back()">Back</a>
+            <a href="login.html">Logout</a>
+        </div>
+    </div>
+ 
+
+    <div class="profile-container">
+        <h1>Student Profile</h1>
+
+        <div class="profile-details">
+            <label>Full Name:</label>
+            <p id="fullName">VADLAMANU NIHARIKA</p>
+
+            <label>Date of Birth:</label>
+            <p id="dob">27 April, 2005</p>
+
+            <label>Gender:</label>
+            <p id="gender">Female</p>
+
+            <label>Current/Latest College:</label>
+            <p id="college">Koneru Lakshmaiah Education Foundation, Guntur</p>
+
+            <button class="edit-button" onclick="openEditModal()">Edit</button>
+        </div>
+         <!-- Placement Enrollments Section -->
+        <div class="enrollment-container">
+            <h2>Placement Enrollments</h2>
+            <ul class="enrolled-jobs" id="enrolledJobsList">
+                <!-- Jobs will be added dynamically -->
+            </ul>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditModal()">&times;</span>
+            <h2>Edit Profile</h2>
+
+            <label for="editFullName">Full Name:</label>
+            <input type="text" id="editFullName" value="VADLAMANU NIHARIKA">
+
+            <label for="editDOB">Date of Birth:</label>
+            <input type="date" id="editDOB" value="2005-04-27">
+
+            <label for="editGender">Gender:</label>
+            <select id="editGender">
+                <option value="Female" selected>Female</option>
+                <option value="Male">Male</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label for="editCollege">Current/Latest College:</label>
+            <input type="text" id="editCollege" value="Koneru Lakshmaiah Education Foundation, Guntur">
+
+            <button class="save-button" onclick="saveProfile()">Save Changes</button>
+        </div>
+    </div>
+
+    <script>
+        // Function to open the edit modal
+        function openEditModal() {
+            document.getElementById('editModal').style.display = "block";
+        }
+
+        // Function to close the edit modal
+        function closeEditModal() {
+            document.getElementById('editModal').style.display = "none";
+        }
+
+        // Function to save profile changes
+        function saveProfile() {
+            // Get updated values
+            const fullName = document.getElementById('editFullName').value;
+            const dob = document.getElementById('editDOB').value;
+            const gender = document.getElementById('editGender').value;
+            const college = document.getElementById('editCollege').value;
+
+            // Set the updated values in the profile section
+            document.getElementById('fullName').textContent = fullName;
+            document.getElementById('dob').textContent = dob.split("-").reverse().join(" ");
+            document.getElementById('gender').textContent = gender;
+            document.getElementById('college').textContent = college;
+
+            // Close the modal
+            closeEditModal();
+
+            alert("Profile updated successfully!");
+        }
+     // Sample job enrollments
+        const enrolledJobs = [
+            { title: 'Software Engineer - Google', details: 'Role: Software Engineer\nLocation: Mountain View\nSalary: $150,000' },
+            { title: 'Data Analyst - Facebook', details: 'Role: Data Analyst\nLocation: Menlo Park\nSalary: $120,000' },
+            { title: 'Cyber Security Specialist - Amazon', details: 'Role: Cyber Security Specialist\nLocation: Seattle\nSalary: $130,000' }
+        ];
+
+        // Function to populate enrolled jobs in the list
+        function populateEnrolledJobs() {
+            const jobsList = document.getElementById('enrolledJobsList');
+
+            enrolledJobs.forEach((job, index) => {
+                const jobItem = document.createElement('li');
+                jobItem.innerHTML = `
+                    <span class="job-title">${job.title}</span>
+                    <div class="job-buttons">
+                        <button class="details-button" onclick="viewJobDetails(${index})">View Details</button>
+                        <button class="remove-button" onclick="removeJob(${index})">Remove</button>
+                    </div>
+                `;
+                jobsList.appendChild(jobItem);
+            });
+        }
+
+        // Function to view job details
+        function viewJobDetails(index) {
+            alert(enrolledJobs[index].details);
+        }
+
+        // Function to remove a job from the enrollments
+        function removeJob(index) {
+            if (confirm('Are you sure you want to remove this job?')) {
+                enrolledJobs.splice(index, 1);
+                document.getElementById('enrolledJobsList').innerHTML = '';  // Clear current list
+                populateEnrolledJobs();  // Repopulate with updated list
+            }
+        }
+
+        // Populate the enrolled jobs list on page load
+        window.onload = populateEnrolledJobs;
+
+
+        // Close the modal if clicked outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('editModal');
+            if (event.target === modal) {
+                closeEditModal();
+            }
+        }
+    </script>
+
+</body>
+</html>

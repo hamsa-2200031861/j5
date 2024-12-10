@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard - Placement Interaction Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background-color: #454545;
+            padding: 15px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .navbar h1 {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: bold;
+        }
+
+        .sidebar {
+            background-color: #454545;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            width: 250px;
+            height: calc(100% - 60px);
+            padding: 20px;
+            color: white;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 15px;
+        }
+
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            display: block;
+            font-weight: bold;
+            padding: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #808080;
+            border-radius: 5px;
+        }
+
+        .content {
+            margin-left: 260px;
+            padding: 20px;
+            padding-top: 80px;
+        }
+
+        .dashboard-welcome {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-welcome h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #454545;
+        }
+
+        .dashboard-welcome p {
+            font-size: 1.2rem;
+            color: #454545;
+        }
+
+        .dashboard-cards {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 45%;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .card .number {
+            font-size: 2.5rem;
+            color: #454545;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #f4f7fc;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <h1>Employer Dashboard</h1>
+        <div>
+            <a href="index.html">Home</a>
+            <a href="login.html">Logout</a>
+            
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <h2>Navigation</h2>
+        <ul>
+            <li><a href="post-jobs.html">Post a Job</a></li>
+            <li><a href="view-applicant.html">View Applicants</a></li>
+            <li><a href="manage-jobs.html">Manage Jobs</a></li>
+            <li><a href="schedule-interviews.html">Schedule Interviews</a></li>
+            <li><a href="review-feedback.html">Review Feedback</a></li>
+            
+        </ul>
+    </div>
+
+    <div class="content">
+        <div class="dashboard-welcome">
+            <h2>Welcome, Employee!</h2>
+            <p>Manage your recruitment process, track applications, and analyze job performance.</p>
+        </div>
+
+        <div class="dashboard-cards">
+            <div class="card">
+                <h3>Jobs Posted</h3>
+                <div class="number" data-target="20">0</div>
+            </div>
+
+            <div class="card">
+                <h3>Applications Received</h3>
+                <div class="number" data-target="250">0</div>
+            </div>
+
+            <div class="card">
+                <h3>Interviews Scheduled</h3>
+                <div class="number" data-target="15">0</div>
+            </div>
+
+            <div class="card">
+                <h3>Offers Extended</h3>
+                <div class="number" data-target="10">0</div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // Function to animate counters
+        const counters = document.querySelectorAll('.number');
+        counters.forEach(counter => {
+            const updateCounter = () => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText.replace(/\D/g, '');
+                const increment = target / 100;
+
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(updateCounter, 10);
+                } else {
+                    counter.innerText = target.toLocaleString();
+                }
+            };
+            updateCounter();
+        });
+    </script>
+</body>
+</html>

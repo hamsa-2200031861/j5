@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - View Students</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .back-button {
+      margin-bottom: 20px;
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 1em;
+      color: white;
+      background-color: #454545;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+    }
+    .back-button:hover {
+      background-color: #808080;
+    }
+    .students-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .student-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+    .student-card:hover {
+      transform: translateY(-5px);
+    }
+    .student-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+      background-color: #454545;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+    }
+    .student-name {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #333;
+      margin: 10px 0;
+    }
+    .student-stats {
+      color: #666;
+      font-size: 0.9em;
+    }
+    .student-stats span {
+      display: inline-block;
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button class="back-button" onclick="goBack()">⬅ Back</button>
+    <div class="header">
+      <h1>View Students</h1>
+      <p>Explore the list of students and their application statuses.</p>
+    </div>
+
+    <!-- Students Grid -->
+    <div id="students-grid" class="students-grid"></div>
+  </div>
+
+  <script>
+    function goBack() {
+      history.back();
+    }
+
+    const studentsData = [
+      { name: "Niharika", applied: 5, selected: 2, rejected: 3 },
+      { name: "Harshitha", applied: 6, selected: 2, rejected: 4 },
+      { name: "Hamsa", applied: 4, selected: 1, rejected: 3 },
+      { name: "Keerthana", applied: 7, selected: 1, rejected: 6 },
+      { name: "Thejomai", applied: 8, selected: 3, rejected: 5 },
+      { name: "Varsha", applied: 10, selected: 6, rejected: 4 },
+      { name: "Teja", applied: 3, selected: 1, rejected: 2 },
+      { name: "Mani", applied: 2, selected: 1, rejected: 1 },
+      { name: "Sushma", applied: 6, selected: 3, rejected: 3 },
+      { name: "Prasad", applied: 5, selected: 3, rejected: 2 },
+      { name: "Shalini", applied: 4, selected: 2, rejected: 2 },
+      { name: "Chaithu", applied: 7, selected: 4, rejected: 3 },
+      { name: "Sravya", applied: 6, selected: 2, rejected: 4 },
+      { name: "Meghana", applied: 9, selected: 5, rejected: 4 },
+      { name: "Sahithi", applied: 3, selected: 2, rejected: 1 },
+      { name: "Tushara", applied: 8, selected: 6, rejected: 2 },
+      { name: "Pranitha", applied: 5, selected: 4, rejected: 1 },
+      { name: "Sathya", applied: 6, selected: 4, rejected: 2 },
+      { name: "Pranathi", applied: 7, selected: 5, rejected: 2 },
+      { name: "Hema", applied: 10, selected: 8, rejected: 2 }
+    ];
+
+    function renderAllStudents() {
+      const studentsGrid = document.getElementById("students-grid");
+
+      studentsData.forEach(student => {
+        const studentCard = document.createElement("div");
+        studentCard.className = "student-card";
+        studentCard.innerHTML = `
+          <div class="student-avatar">${student.name[0]}</div>
+          <div class="student-name">${student.name}</div>
+          <div class="student-stats">
+            <span><strong>Applied:</strong> ${student.applied} companies</span><br>
+            <span><strong>Selected:</strong> ${student.selected}</span><br>
+            <span><strong>Rejected:</strong> ${student.rejected}</span>
+          </div>
+        `;
+        studentsGrid.appendChild(studentCard);
+      });
+    }
+
+    // Render all students immediately
+    renderAllStudents();
+  </script>
+</body>
+</html>

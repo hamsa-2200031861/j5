@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placement Drives Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eef3f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #454545;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+         .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: bold;
+        }
+
+        .navbar-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .navbar-buttons button {
+            background-color: #454545;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .navbar-buttons button:hover {
+            background-color: #808080;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .drive-section {
+            margin-bottom: 40px;
+        }
+
+        .drive-card {
+            background-color: #ffffff;
+            padding: 15px;
+            margin: 15px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+        }
+
+        .drive-card h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .drive-card p {
+            margin: 5px 0;
+        }
+
+        .drive-card .mode {
+            color: #454545;
+            font-weight: bold;
+        }
+
+        .drive-card .date {
+            color: #454545;
+            font-weight: bold;
+        }
+
+        .btn {
+            background-color: #454545;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: #808080;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1001;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .modal-header {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .modal-body {
+            margin-bottom: 20px;
+        }
+
+        .modal-footer {
+            text-align: right;
+        }
+
+        .modal-footer .btn {
+            margin-left: 10px;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>Placement Drives Management</h1>
+        <div class="navbar-buttons">
+            <button onclick="goHome()">Home</button>
+            <button onclick="logout()">Logout</button>
+            <button onclick="goBack()">Back</button>
+        </div>
+    </div>
+
+    <div class="content">
+        <!-- Upcoming Drives -->
+        <div class="drive-section">
+            <h2>Upcoming Drives</h2>
+            <div class="drive-card">
+                <h3>Google Placement Drive</h3>
+                <p><strong>Mode:</strong> <span class="mode">Online</span></p>
+                <p><strong>Date:</strong> <span class="date">2024-12-15</span></p>
+                <p>Drive for software engineering and design roles.</p>
+                <button class="btn" onclick="viewDetails('Google Placement Drive', '2024-12-15', '2024-12-16', 'TBD', 'Focus on AI and design roles.')">View Details</button>
+            </div>
+            <!-- Other drive cards can be added here similarly -->
+            <div class="drive-card">
+    <h3>Apple Placement Drive</h3>
+    <p><strong>Mode:</strong> <span class="mode">Online</span></p>
+    <p><strong>Date:</strong> <span class="date">2024-12-15</span></p>
+    <p>Drive focused on hardware design and system architecture roles.</p>
+    <button class="btn" onclick="viewDetails('Apple Placement Drive', '2024-12-15', '2024-12-16', 'TBD', 'Hardware design and system architecture positions.')">View Details</button>
+</div>
+<div class="drive-card">
+    <h3>Capgemini Placement Drive</h3>
+    <p><strong>Mode:</strong> <span class="mode">Hybrid</span></p>
+    <p><strong>Date:</strong> <span class="date">2024-12-18</span></p>
+    <p>Drive for roles in cybersecurity and IT consulting.</p>
+    <button class="btn" onclick="viewDetails('Capgemini Placement Drive', '2024-12-18', '2024-12-20', 'TBD', 'Cybersecurity and IT consulting opportunities.')">View Details</button>
+</div>
+<div class="drive-card">
+    <h3>Deloitte Placement Drive</h3>
+    <p><strong>Mode:</strong> <span class="mode">Campus</span></p>
+    <p><strong>Date:</strong> <span class="date">2024-12-22</span></p>
+    <p>Drive for financial analysis and business consulting roles.</p>
+    <button class="btn" onclick="viewDetails('Deloitte Placement Drive', '2024-12-22', '2024-12-23', 'TBD', 'Financial analysis and business consulting positions.')">View Details</button>
+</div>
+        </div>
+
+        <!-- Active Drives -->
+        <div class="drive-section">
+            <h2>Active Drives</h2>
+            <div class="drive-card">
+                <h3>Amazon Placement Drive</h3>
+                <p><strong>Mode:</strong> <span class="mode">Hybrid</span></p>
+                <p><strong>Date:</strong> <span class="date">Ongoing (2024-12-01 to 2024-12-07)</span></p>
+                <p>Drive for cloud and backend engineering roles.</p>
+                <button class="btn" onclick="viewDetails('Amazon Placement Drive', '2024-12-01', '2024-12-07', 'TBD', 'Cloud and backend roles.')">View Details</button>
+            </div>
+            <div class="drive-card">
+    <h3>Microsoft Placement Drive</h3>
+    <p><strong>Mode:</strong> <span class="mode">Online</span></p>
+    <p><strong>Date:</strong> <span class="date">Ongoing (2024-12-03 to 2024-12-09)</span></p>
+    <p>Drive for software development and cloud roles with real-world problem-solving tasks.</p>
+    <button class="btn" onclick="viewDetails('Microsoft Placement Drive', '2024-12-03', '2024-12-09', 'TBD', 'Software development and cloud engineering tasks.')">View Details</button>
+</div>
+<div class="drive-card">
+    <h3>IBM Placement Drive</h3>
+    <p><strong>Mode:</strong> <span class="mode">Hybrid</span></p>
+    <p><strong>Date:</strong> <span class="date">Ongoing (2024-12-05 to 2024-12-10)</span></p>
+    <p>Drive for roles in data analytics and AI-powered system development.</p>
+    <button class="btn" onclick="viewDetails('IBM Placement Drive', '2024-12-05', '2024-12-10', 'TBD', 'Data analytics and AI system development roles.')">View Details</button>
+</div>
+<div class="drive-card">
+    <h3>Wipro Placement Drive</h3>
+    <p><strong>Mode:</strong> <span class="mode">Campus</span></p>
+    <p><strong>Date:</strong> <span class="date">Ongoing (2024-12-04 to 2024-12-08)</span></p>
+    <p>Drive for technical consulting and software testing roles.</p>
+    <button class="btn" onclick="viewDetails('Wipro Placement Drive', '2024-12-04', '2024-12-08', 'TBD', 'Technical consulting and software testing roles.')">View Details</button>
+</div>
+            <!-- Other active drives here -->
+        </div>
+
+        <!-- Previously Completed Drives -->
+        <div class="drive-section">
+            <h2>Previously Completed Drives</h2>
+            <div class="drive-card">
+                <h3>TCS Placement Drive</h3>
+                <p><strong>Mode:</strong> <span class="mode">Online</span></p>
+                <p><strong>Date:</strong> <span class="date">2024-11-25</span></p>
+                <p>Drive for managerial and technical roles with diverse rounds.</p>
+                <button class="btn" onclick="viewDetails('TCS Placement Drive', '2024-11-20', '2024-11-25', '45', 'Managerial and technical roles.')">View Details</button>
+            </div>
+            <div class="drive-card">
+        <h3>Infosys Placement Drive</h3>
+        <p><strong>Mode:</strong> <span class="mode">Hybrid</span></p>
+        <p><strong>Date:</strong> <span class="date">2024-10-15</span></p>
+        <p>Opportunity for software development and business analyst roles.</p>
+        <button class="btn" onclick="viewDetails('Infosys Placement Drive', '2024-10-10', '2024-10-15', '60', 'Software development and business analyst roles.')">View Details</button>
+    </div>
+
+    <div class="drive-card">
+        <h3>Wipro Elite National Talent Hunt</h3>
+        <p><strong>Mode:</strong> <span class="mode">Online</span></p>
+        <p><strong>Date:</strong> <span class="date">2024-09-30</span></p>
+        <p>Hiring for engineering graduates across multiple streams.</p>
+        <button class="btn" onclick="viewDetails('Wipro Elite National Talent Hunt', '2024-09-25', '2024-09-30', '70', 'Engineering graduates across multiple streams.')">View Details</button>
+    </div>
+
+    <div class="drive-card">
+        <h3>Capgemini Off-Campus Drive</h3>
+        <p><strong>Mode:</strong> <span class="mode">Offline</span></p>
+        <p><strong>Date:</strong> <span class="date">2024-08-20</span></p>
+        <p>Recruitment for software testing and developer roles.</p>
+        <button class="btn" onclick="viewDetails('Capgemini Off-Campus Drive', '2024-08-15', '2024-08-20', '50', 'Software testing and developer roles.')">View Details</button>
+    </div>
+
+    <div class="drive-card">
+        <h3>Accenture Campus Hiring</h3>
+        <p><strong>Mode:</strong> <span class="mode">Hybrid</span></p>
+        <p><strong>Date:</strong> <span class="date">2024-07-10</span></p>
+        <p>Focused on consulting, cloud services, and analytics roles.</p>
+        <button class="btn" onclick="viewDetails('Accenture Campus Hiring', '2024-07-05', '2024-07-10', '40', 'Consulting, cloud services, and analytics roles.')">View Details</button>
+    </div>
+            
+            
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal-overlay"></div>
+    <div class="modal" id="modal">
+        <div class="modal-header" id="modal-header"></div>
+        <div class="modal-body" id="modal-body"></div>
+        <div class="modal-footer">
+            <button class="btn" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        function viewDetails(title, startDate, endDate, studentsSelected, description) {
+            // Populate modal with drive details
+            document.getElementById('modal-header').innerText = title;
+            document.getElementById('modal-body').innerHTML = `
+                <p><strong>Starting Date:</strong> ${startDate}</p>
+                <p><strong>Ending Date:</strong> ${endDate}</p>
+                <p><strong>Number of Students Selected:</strong> ${studentsSelected}</p>
+                <p><strong>Details:</strong> ${description}</p>
+            `;
+
+            // Show modal and overlay
+            document.getElementById('modal').style.display = 'block';
+            document.getElementById('modal-overlay').style.display = 'block';
+        }
+
+        function closeModal() {
+            // Hide modal and overlay
+            document.getElementById('modal').style.display = 'none';
+            document.getElementById('modal-overlay').style.display = 'none';
+        }
+
+        // Navigation functions
+        function goHome() {
+            window.location.href = '/home';  // Modify with actual home page URL
+        }
+
+        function logout() {
+            window.location.href = '/logout';  // Modify with actual logout page URL
+        }
+
+        function goBack() {
+            window.history.back();  // Goes to the previous page
+        }
+    </script>
+</body>
+</html>

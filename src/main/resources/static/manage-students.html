@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Students - Placement Tracker</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fc;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #454545;
+            padding: 10px 20px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar h1 {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .navbar a:hover {
+            background-color: #6a5acd;
+        }
+
+        .content {
+            margin: 80px 20px 20px 20px;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .btn {
+            background-color: #454545;
+            color: white;
+            padding: 5px 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #808080;
+        }
+
+        .btn-delete {
+            background-color: #d9534f;
+        }
+
+        .btn-delete:hover {
+            background-color: #c9302c;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <h1>Placement Tracker</h1>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="placement-officer-dashboard.html">Back</a>
+            <a href="login.html" class="logout">Logout</a>
+        </div>
+    </div>
+
+    <div class="content">
+        <h2>Manage Students</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Course</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="studentTable">
+                <tr>
+                    <td>101</td>
+                    <td>Niharika</td>
+                    <td>niha@gmail.com</td>
+                    <td>Computer Science</td>
+                    <td>
+                        <button class="btn btn-edit" onclick="editStudent(this)">Edit</button>
+                        <button class="btn btn-delete" onclick="deleteStudent(this)">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>102</td>
+                    <td>Harshitha</td>
+                    <td>Harshitha@gmail.com</td>
+                    <td>Information Technology</td>
+                    <td>
+                        <button class="btn btn-edit" onclick="editStudent(this)">Edit</button>
+                        <button class="btn btn-delete" onclick="deleteStudent(this)">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>103</td>
+                    <td>Hamsa</td>
+                    <td>hamsa@gmail.com</td>
+                    <td>Mechanical Engineering</td>
+                    <td>
+                        <button class="btn btn-edit" onclick="editStudent(this)">Edit</button>
+                        <button class="btn btn-delete" onclick="deleteStudent(this)">Delete</button>
+                    </td>
+                </tr>
+                <!-- Add more students as needed -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Edit Student Function
+        function editStudent(button) {
+            const row = button.closest('tr');
+            const cells = row.querySelectorAll('td');
+            const studentID = cells[0].textContent;
+            const name = cells[1].textContent;
+            const email = cells[2].textContent;
+            const course = cells[3].textContent;
+
+            const newName = prompt("Edit Name:", name);
+            const newEmail = prompt("Edit Email:", email);
+            const newCourse = prompt("Edit Course:", course);
+
+            if (newName !== null) cells[1].textContent = newName;
+            if (newEmail !== null) cells[2].textContent = newEmail;
+            if (newCourse !== null) cells[3].textContent = newCourse;
+
+            alert(`Student ID ${studentID} updated successfully!`);
+        }
+
+        // Delete Student Function
+        function deleteStudent(button) {
+            const row = button.closest('tr');
+            const studentID = row.querySelector('td').textContent;
+
+            const confirmDelete = confirm(`Are you sure you want to delete student ID ${studentID}?`);
+            if (confirmDelete) {
+                row.remove();
+                alert(`Student ID ${studentID} deleted successfully!`);
+            }
+        }
+    </script>
+</body>
+</html>

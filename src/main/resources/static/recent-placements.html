@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recent Placements - Placement Tracker</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .back-arrow {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            text-decoration: none;
+            font-size: 1.5rem;
+            color: #454545;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .back-arrow:hover {
+            color: #808080;
+        }
+
+        .search-bar {
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-bar input:focus {
+            border-color: #454545;
+        }
+
+        .search-bar button {
+            padding: 10px 15px;
+            border: none;
+            background-color: #454545;
+            color: white;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .search-bar button:hover {
+            background-color: #808080;
+        }
+
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+        }
+
+        .card h2 {
+            font-size: 2rem;
+            color: #454545;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .counter {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #454545;
+            margin-bottom: 10px;
+        }
+
+        .back-button {
+            margin-top: 20px;
+            display: none; /* Initially hidden */
+            background-color: #454545;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            background-color: #808080;
+        }
+
+        @keyframes counter {
+            from {
+                counter-reset: count 0;
+            }
+            to {
+                counter-reset: count var(--count);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Back Arrow -->
+    <a class="back-arrow" href="admin-dashboard.html">← Back</a>
+
+    <h1>Recent Placements</h1>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search placements by company...">
+        <button onclick="filterCards()">Search</button>
+    </div>
+
+    <!-- Cards Container -->
+    <div class="cards-container" id="cardsContainer">
+        <div class="card" data-company="Google">
+            <h2>Google</h2>
+            <div class="counter" data-target="25">0</div>
+            <p>Placements Completed</p>
+        </div>
+        <div class="card" data-company="Amazon">
+            <h2>Amazon</h2>
+            <div class="counter" data-target="30">0</div>
+            <p>Placements Completed</p>
+        </div>
+        <div class="card" data-company="Microsoft">
+            <h2>Microsoft</h2>
+            <div class="counter" data-target="15">0</div>
+            <p>Placements Completed</p>
+        </div>
+        <div class="card" data-company="Facebook">
+            <h2>Facebook</h2>
+            <div class="counter" data-target="20">0</div>
+            <p>Placements Completed</p>
+        </div>
+    </div>
+
+    <!-- Back Button -->
+    <button class="back-button" id="backButton" onclick="resetSearch()">Back to Search</button>
+
+    <script>
+        // Counter animation
+        const counters = document.querySelectorAll('.counter');
+        counters.forEach(counter => {
+            const target = +counter.getAttribute('data-target');
+            let count = 0;
+
+            const updateCounter = () => {
+                if (count < target) {
+                    count += Math.ceil(target / 100); // Increment in steps
+                    counter.textContent = count;
+                    setTimeout(updateCounter, 20); // Speed of the counter
+                } else {
+                    counter.textContent = target;
+                }
+            };
+
+            updateCounter();
+        });
+
+        // Search functionality
+        function filterCards() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.card');
+            const backButton = document.getElementById('backButton');
+
+            let hasResults = false;
+
+            cards.forEach(card => {
+                const company = card.getAttribute('data-company').toLowerCase();
+                if (company.includes(searchInput)) {
+                    card.style.display = 'block';
+                    hasResults = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Show the back button if search was performed
+            if (hasResults || searchInput.trim()) {
+                backButton.style.display = 'block';
+            }
+        }
+
+        // Reset search
+        function resetSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const cards = document.querySelectorAll('.card');
+            const backButton = document.getElementById('backButton');
+
+            searchInput.value = '';
+            cards.forEach(card => card.style.display = 'block');
+            backButton.style.display = 'none';
+        }
+    </script>
+</body>
+</html>

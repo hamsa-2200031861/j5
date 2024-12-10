@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessments</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fc;
+            color: #333;
+            padding: 20px;
+        }
+
+	        .navbar {
+	    background-color: #454545;
+	    padding: 10px;
+	    display: flex;
+	    justify-content: space-between;
+	    align-items: center;
+	    color: white;
+	    font-weight: bold;
+	    position: fixed;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    z-index: 1000;
+	}
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+        }
+
+        .navbar a:hover {
+            background-color: #808080;
+            border-radius: 5px;
+        }
+
+	        .container {
+	    max-width: 900px;
+	    margin: 80px auto 20px; /* Adjusted margin to create space below the fixed navbar */
+	}
+        
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #454545;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #808080;
+        }
+
+        .assessment-section {
+            margin-top: 30px;
+            display: none;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .assessment-message {
+            font-size: 1.5rem;
+            color: #454545;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="navbar">
+    <a href="#">PLACEMENT TRACKER</a>
+    <div>
+        <a href="index.html">Home</a>
+        <a href="student-dashboard.html">Back</a>
+        <a href="login.html">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+    <h2>Assessments</h2>
+    <div style="text-align:center;">
+        <button class="btn" onclick="showUpcoming()">Upcoming Assessments</button>
+        <button class="btn" onclick="showPast()">Past Assessments</button>
+    </div>
+
+    <!-- Upcoming Assessments Section -->
+    <div id="upcoming-assessments" class="assessment-section">
+        <h3>Upcoming</h3>
+        <p class="assessment-message">No Assessments to show</p>
+        <p>Sit back and relax till new assessments are added.</p>
+    </div>
+
+    <!-- Past Assessments Section -->
+    <div id="past-assessments" class="assessment-section">
+        <h3>Past</h3>
+        <p class="assessment-message">No Assessments to show</p>
+        <p>Check back later for past assessments results.</p>
+    </div>
+</div>
+
+<script>
+    function showUpcoming() {
+        // Hide all sections
+        document.getElementById('upcoming-assessments').style.display = 'block';
+        document.getElementById('past-assessments').style.display = 'none';
+    }
+
+    function showPast() {
+        // Hide all sections
+        document.getElementById('upcoming-assessments').style.display = 'none';
+        document.getElementById('past-assessments').style.display = 'block';
+    }
+</script>
+</body>
+</html>

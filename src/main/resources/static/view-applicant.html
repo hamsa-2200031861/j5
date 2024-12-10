@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Applicants</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            padding: 20px;
+            color: #333;
+        }
+        nav {
+            background-color: #454545;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #454545;
+        }
+
+        .job-list {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .job-item {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .job-item h3 {
+            color: #454545;
+            margin-bottom: 10px;
+        }
+
+        .applicant-item {
+            background-color: #ffffff;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .applicant-item p {
+            margin: 5px 0;
+        }
+
+        .applicant-item button {
+            background-color: #454545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 12px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .applicant-item button.view-resume {
+            background-color: #454545;
+        }
+
+        .applicant-item button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+       <nav>
+        <h2>Employer Dashboard</h2>
+        <div>
+            <a href="index.html">Home</a>
+            <a href="employer-dashboard.html">Back</a>
+            <a href="login.html">logout</a>
+        </div>
+    </nav>
+    <h1>View Applicants</h1>
+
+    <div class="job-list">
+        <!-- Job 1 -->
+        <div class="job-item">
+            <h3>Software Engineer</h3>
+            <p><strong>Posted By:</strong> ABC Corp</p>
+            <p><strong>Description:</strong> Develop and maintain web applications.</p>
+            <p><strong>Applicants:</strong></p>
+            <div class="applicant-item">
+                <p><strong>Name:</strong> John Doe</p>
+                <p><strong>Email:</strong> john.doe@example.com</p>
+                <p><strong>CGPA:</strong> 8.5</p>
+                <p><strong>Skills:</strong> JavaScript, React, Node.js</p>
+                <button class="view-resume" onclick="viewResume('images/resume3.pdf')">View Resume</button>
+                <button onclick="shortlistApplicant('John Doe')">Shortlist</button>
+                <button onclick="rejectApplicant('John Doe')">Reject</button>
+            </div>
+            <div class="applicant-item">
+                <p><strong>Name:</strong> Jane Smith</p>
+                <p><strong>Email:</strong> jane.smith@example.com</p>
+                <p><strong>CGPA:</strong> 9.0</p>
+                <p><strong>Skills:</strong> Python, Machine Learning, Data Science</p>
+                <button class="view-resume" onclick="viewResume('images/resume2.pdf')">View Resume</button>
+                <button onclick="shortlistApplicant('Jane Smith')">Shortlist</button>
+                <button onclick="rejectApplicant('Jane Smith')">Reject</button>
+            </div>
+        </div>
+
+        <!-- Job 2 -->
+        <div class="job-item">
+            <h3>Data Analyst</h3>
+            <p><strong>Posted By:</strong> XYZ Ltd</p>
+            <p><strong>Description:</strong> Analyze and interpret data trends.</p>
+            <p><strong>Applicants:</strong></p>
+            <div class="applicant-item">
+                <p><strong>Name:</strong> Alice Brown</p>
+                <p><strong>Email:</strong> alice.brown@example.com</p>
+                <p><strong>CGPA:</strong> 8.8</p>
+                <p><strong>Skills:</strong> SQL, Excel, Data Visualization</p>
+                <button class="view-resume" onclick="viewResume('images/resume1.pdf')">View Resume</button>
+                <button onclick="shortlistApplicant('Alice Brown')">Shortlist</button>
+                <button onclick="rejectApplicant('Alice Brown')">Reject</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function viewResume(fileName) {
+            alert(`Opening resume: ${fileName}`);
+            // Open the resume in a new tab (Replace with actual file path)
+            window.open(fileName, '_blank');
+        }
+
+        function shortlistApplicant(applicantName) {
+            alert(`${applicantName} has been shortlisted.`);
+            // Add functionality to mark the applicant as shortlisted (e.g., update database)
+        }
+
+        function rejectApplicant(applicantName) {
+            alert(`${applicantName} has been rejected.`);
+            // Add functionality to mark the applicant as rejected (e.g., update database)
+        }
+    </script>
+
+</body>
+</html>

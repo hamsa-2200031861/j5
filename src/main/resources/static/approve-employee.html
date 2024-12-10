@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Approve Employers</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .back-button {
+      margin-bottom: 20px;
+    }
+    .back-btn {
+      display: inline-block;
+      text-decoration: none;
+      background-color: #454545;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+    .back-btn:hover {
+      background-color: #808080;
+      transform: scale(1.05);
+    }
+    .employers-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .employer-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+    .employer-card:hover {
+      transform: translateY(-3px);
+    }
+    .employer-name {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #333;
+      margin: 8px 0;
+    }
+    .employer-role {
+      font-size: 1em;
+      color: #454545;
+      margin-bottom: 10px;
+    }
+    .employer-status {
+      font-size: 0.8em;
+      margin-bottom: 10px;
+      color: #666;
+    }
+    .approve-btn {
+      padding: 8px 12px;
+      background-color: #454545;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9em;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+    .approve-btn:hover {
+      background-color: #808080;
+      transform: scale(1.05);
+    }
+    .approve-btn:disabled {
+      background-color: #6c757d;
+      cursor: not-allowed;
+    }
+    .approved-section {
+      margin-top: 40px;
+    }
+    .approved-title {
+      font-size: 1.3em;
+      font-weight: bold;
+      text-align: center;
+      color: #454545;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Approve Employers</h1>
+      <p>Review the list of employers and approve them for placement opportunities.</p>
+    </div>
+
+    <div class="back-button">
+      <a href="admin-dashboard.html" class="back-btn">Back</a>
+    </div>
+    
+    <!-- Employers List -->
+    <div class="employers-list" id="pending-employers">
+      <div class="employer-card" id="employer-1">
+        <div class="employer-name">ABC College of Engineering</div>
+        <div class="employer-role">Role: HOD</div>
+        <div class="employer-status">Status: <span id="status-1">Pending</span></div>
+        <button class="approve-btn" onclick="approveEmployer('employer-1', 'status-1', 'ABC College of Engineering')">Approve</button>
+      </div>
+      <div class="employer-card" id="employer-2">
+        <div class="employer-name">XYZ Institute of Technology</div>
+        <div class="employer-role">Role: Assistant Professor</div>
+        <div class="employer-status">Status: <span id="status-2">Pending</span></div>
+        <button class="approve-btn" onclick="approveEmployer('employer-2', 'status-2', 'XYZ Institute of Technology')">Approve</button>
+      </div>
+      <div class="employer-card" id="employer-3">
+  <div class="employer-name">PQR School of Management</div>
+  <div class="employer-role">Role: Principal</div>
+  <div class="employer-status">Status: <span id="status-3">Pending</span></div>
+  <button class="approve-btn" onclick="approveEmployer('employer-3', 'status-3', 'PQR School of Management')">Approve</button>
+</div>
+
+<div class="employer-card" id="employer-4">
+  <div class="employer-name">LMN Technical University</div>
+  <div class="employer-role">Role: Dean</div>
+  <div class="employer-status">Status: <span id="status-4">Pending</span></div>
+  <button class="approve-btn" onclick="approveEmployer('employer-4', 'status-4', 'LMN Technical University')">Approve</button>
+</div>
+
+<div class="employer-card" id="employer-5">
+  <div class="employer-name">OPQ Business Academy</div>
+  <div class="employer-role">Role: Senior Lecturer</div>
+  <div class="employer-status">Status: <span id="status-5">Pending</span></div>
+  <button class="approve-btn" onclick="approveEmployer('employer-5', 'status-5', 'OPQ Business Academy')">Approve</button>
+</div>
+
+<div class="employer-card" id="employer-6">
+  <div class="employer-name">RST College of Arts</div>
+  <div class="employer-role">Role: Placement Officer</div>
+  <div class="employer-status">Status: <span id="status-6">Pending</span></div>
+  <button class="approve-btn" onclick="approveEmployer('employer-6', 'status-6', 'RST College of Arts')">Approve</button>
+</div>
+
+<div class="employer-card" id="employer-7">
+  <div class="employer-name">UVW Institute of Design</div>
+  <div class="employer-role">Role: Coordinator</div>
+  <div class="employer-status">Status: <span id="status-7">Pending</span></div>
+  <button class="approve-btn" onclick="approveEmployer('employer-7', 'status-7', 'UVW Institute of Design')">Approve</button>
+</div>
+
+<div class="employer-card" id="employer-8">
+  <div class="employer-name">XYZ University of Science</div>
+  <div class="employer-role">Role: Research Assistant</div>
+  <div class="employer-status">Status: <span id="status-8">Pending</span></div>
+  <button class="approve-btn" onclick="approveEmployer('employer-8', 'status-8', 'XYZ University of Science')">Approve</button>
+</div>
+
+<div class="employer-card" id="employer-9">
+  <div class="employer-name">EFG Engineering College</div>
+  <div class="employer-role">Role: Vice Principal</div>
+  <div class="employer-status">Status: <span id="status-9">Pending</span></div>
+  <button class="approve-btn" onclick="approveEmployer('employer-9', 'status-9', 'EFG Engineering College')">Approve</button>
+</div>
+      
+    </div>
+
+    <!-- Approved Employers Section -->
+    <div class="approved-section">
+      <div class="approved-title">Approved Employers</div>
+      <div class="employers-list" id="approved-employers">
+        <!-- Approved employers will appear here -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function approveEmployer(employerId, statusId, employerName) {
+      const employerCard = document.getElementById(employerId);
+      const statusElement = document.getElementById(statusId);
+      const approvedList = document.getElementById("approved-employers");
+
+      // Update the status text
+      statusElement.textContent = "Approved";
+      statusElement.style.color = "#28a745";
+
+      // Disable the button
+      const approveButton = employerCard.querySelector(".approve-btn");
+      approveButton.disabled = true;
+      approveButton.textContent = "Approved";
+
+      // Move the card to the approved list
+      approvedList.appendChild(employerCard);
+
+      // Alert confirmation
+      alert(employerName + " has been approved!");
+    }
+  </script>
+</body>
+</html>

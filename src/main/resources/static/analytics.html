@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placement Officer Dashboard - Analytics</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #454545;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .navbar .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .navbar .nav-buttons a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            padding: 8px 12px;
+            background-color: #454545;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar .nav-buttons a:hover {
+            background-color: #808080;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+        }
+
+        .analytics-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+        }
+
+        .chart-container {
+            margin: 20px;
+        }
+
+        .chart-container canvas {
+            width: 100% !important;
+            height: 350px !important; /* Increased the height for larger graphs */
+        }
+
+        .top-students-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .top-students-table th, .top-students-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .top-students-table th {
+            background-color: #454545;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <h1>Placement Officer Dashboard - Analytics</h1>
+        <div class="nav-buttons">
+            <a href="index.html">Home</a>
+            <a href="javascript:history.back()">Back</a>
+            <a href="login.html">Logout</a>
+        </div>
+    </div>
+
+    <!-- Analytics Content -->
+    <div class="content">
+        <div class="analytics-container">
+            <!-- Unplaced Students -->
+            <div class="card">
+                <h3>Unplaced Students</h3>
+                <div class="chart-container">
+                    <canvas id="unplacedStudentsChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Applications per Job -->
+            <div class="card">
+                <h3>Applications per Job Posting</h3>
+                <div class="chart-container">
+                    <canvas id="applicationsPerJobChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Placements by Department -->
+            <div class="card">
+                <h3>Placements by Department</h3>
+                <div class="chart-container">
+                    <canvas id="placementsByDepartmentChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Top Students Table -->
+        <div class="card">
+            <h3>Top Students</h3>
+            <table class="top-students-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Department</th>
+                        <th>CGPA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Niharika</td>
+                        <td>Computer Science</td>
+                        <td>9.5</td>
+                    </tr>
+                    <tr>
+                        <td>Harshitha</td>
+                        <td>Electronics</td>
+                        <td>9.3</td>
+                    </tr>
+                    <tr>
+                        <td>Hamsa</td>
+                        <td>Mechanical</td>
+                        <td>9.2</td>
+                    </tr>
+                    <!-- More rows can be added dynamically -->
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script>
+        // Unplaced Students Chart (Bar chart)
+        const unplacedStudentsData = {
+            labels: ['CS', 'IT', 'Mech', 'Civil', 'ECE'],
+            datasets: [{
+                label: 'Unplaced Students',
+                data: [50, 20, 30, 10, 40], // Example data
+                backgroundColor: '#454545'
+            }]
+        };
+
+        const unplacedStudentsChart = new Chart(document.getElementById('unplacedStudentsChart'), {
+            type: 'bar',
+            data: unplacedStudentsData
+        });
+
+        // Applications per Job Chart (Bar chart)
+        const applicationsPerJobData = {
+            labels: ['Job 1', 'Job 2', 'Job 3', 'Job 4'],
+            datasets: [{
+                label: 'Applications',
+                data: [200, 150, 300, 100], // Example data
+                backgroundColor: '#ffe800'
+            }]
+        };
+
+        const applicationsPerJobChart = new Chart(document.getElementById('applicationsPerJobChart'), {
+            type: 'bar',
+            data: applicationsPerJobData
+        });
+
+        // Placements by Department (Pie chart)
+        const placementsByDepartmentData = {
+            labels: ['CS', 'IT', 'Mech', 'Civil', 'ECE'],
+            datasets: [{
+                data: [200, 150, 100, 50, 80], // Example data
+                backgroundColor: ['#454545', '#ccc', '#ffe800', '#99ee90', '#9c27b0']
+            }]
+        };
+
+        const placementsByDepartmentChart = new Chart(document.getElementById('placementsByDepartmentChart'), {
+            type: 'pie',
+            data: placementsByDepartmentData
+        });
+    </script>
+
+</body>
+</html>

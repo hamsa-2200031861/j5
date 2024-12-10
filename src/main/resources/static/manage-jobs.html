@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Jobs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #454545;
+        }
+        h3 {
+        text-align: center;
+        color: #454545;
+        }
+        .job-list {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .job-item {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .job-item h3 {
+            color: #454545;
+            margin-bottom: 10px;
+        }
+
+        .job-item p {
+            margin: 5px 0;
+        }
+
+        .job-item button {
+            background-color: #454545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 12px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .job-item button.edit {
+            background-color: #454545;
+        }
+
+        .job-item button.delete {
+            background-color: #454545;
+        }
+
+        .job-item button:hover {
+            opacity: 0.9;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container input, .form-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-container button {
+            background-color: #454545;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            opacity: 0.9;
+        }
+        nav {
+            background-color: #454545;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        
+    </style>
+</head>
+<body>
+      <nav>
+        <h2>Employer Dashboard</h2>
+        <div>
+            <a href="index.html">Home</a>
+            <a href="employer-dashboard.html">Back</a>
+            <a href="login.html">logout</a>
+        </div>
+    </nav>
+    <h1>Manage Jobs</h1>
+
+    <!-- Job Postings List -->
+    <div class="job-list" id="job-list">
+        <!-- Job cards will be dynamically populated here -->
+    </div>
+
+    <h3>Add New Job Posting</h3>
+    <div class="form-container">
+        <form id="job-form">
+            <input type="text" id="job-title" placeholder="Job Title" required>
+            <textarea id="job-description" placeholder="Job Description" rows="4" required></textarea>
+            <input type="number" id="job-salary" placeholder="Salary Range (e.g., 50000)" required>
+            <input type="text" id="job-qualification" placeholder="Qualifications" required>
+            <input type="text" id="job-skills" placeholder="Skills Required" required>
+            <input type="number" id="job-cgpa" placeholder="Required CGPA" required>
+            <button type="submit">Post Job</button>
+        </form>
+    </div>
+
+    <script>
+        // Sample job data
+        const jobs = [
+            { title: "Software Engineer", description: "Develop and maintain web applications.", salary: "$60,000 - $80,000", qualification: "B.Tech", skills: "JavaScript, React", cgpa: "7.5" },
+            { title: "Data Analyst", description: "Analyze and interpret data trends.", salary: "$50,000 - $70,000", qualification: "B.Sc Data Science", skills: "SQL, Excel", cgpa: "8.0" }
+        ];
+
+        // Function to render jobs
+        function renderJobs() {
+            const jobListContainer = document.getElementById('job-list');
+            jobListContainer.innerHTML = ''; // Clear previous job list
+            jobs.forEach((job, index) => {
+                const jobItem = document.createElement('div');
+                jobItem.className = 'job-item';
+                jobItem.innerHTML = `
+                    <h3>${job.title}</h3>
+                    <p><strong>Posted By:</strong> ABC Corp</p>
+                    <p><strong>Description:</strong> ${job.description}</p>
+                    <p><strong>Salary:</strong> ${job.salary}</p>
+                    <p><strong>Qualifications:</strong> ${job.qualification}</p>
+                    <p><strong>Skills:</strong> ${job.skills}</p>
+                    <p><strong>CGPA:</strong> ${job.cgpa}</p>
+                    <button class="edit" onclick="editJob(${index})">Edit</button>
+                    <button class="delete" onclick="deleteJob(${index})">Delete</button>
+                `;
+                jobListContainer.appendChild(jobItem);
+            });
+        }
+
+        // Function to handle editing a job
+        function editJob(index) {
+            const job = jobs[index];
+            document.getElementById('job-title').value = job.title;
+            document.getElementById('job-description').value = job.description;
+            document.getElementById('job-salary').value = job.salary.replace('$', '').replace(',', '');
+            document.getElementById('job-qualification').value = job.qualification;
+            document.getElementById('job-skills').value = job.skills;
+            document.getElementById('job-cgpa').value = job.cgpa;
+            document.getElementById('job-form').onsubmit = function(e) {
+                e.preventDefault();
+                updateJob(index);
+            };
+        }
+
+        // Function to update a job after editing
+        function updateJob(index) {
+            const updatedJob = {
+                title: document.getElementById('job-title').value,
+                description: document.getElementById('job-description').value,
+                salary: '$' + document.getElementById('job-salary').value,
+                qualification: document.getElementById('job-qualification').value,
+                skills: document.getElementById('job-skills').value,
+                cgpa: document.getElementById('job-cgpa').value
+            };
+            jobs[index] = updatedJob;
+            renderJobs(); // Re-render job list
+        }
+
+        // Function to delete a job
+        function deleteJob(index) {
+            const confirmation = confirm(`Are you sure you want to delete the job: ${jobs[index].title}?`);
+            if (confirmation) {
+                jobs.splice(index, 1); // Remove job from the array
+                renderJobs(); // Re-render job list
+            }
+        }
+
+        // Handle form submission for posting a new job
+        document.getElementById('job-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const newJob = {
+                title: document.getElementById('job-title').value,
+                description: document.getElementById('job-description').value,
+                salary: '$' + document.getElementById('job-salary').value,
+                qualification: document.getElementById('job-qualification').value,
+                skills: document.getElementById('job-skills').value,
+                cgpa: document.getElementById('job-cgpa').value
+            };
+            jobs.push(newJob);
+            renderJobs(); // Re-render job list with new job
+            document.getElementById('job-form').reset(); // Reset form
+        });
+
+        // Initial render
+        renderJobs();
+    </script>
+
+</body>
+</html>

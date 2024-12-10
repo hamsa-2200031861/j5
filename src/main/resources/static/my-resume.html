@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Resume - Student Dashboard</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fc;
+            color: #333;
+        }
+        .navbar {
+            background-color: #454545;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            font-weight:bold;
+        }
+
+        .navbar a:hover {
+            background-color: #808080;
+            border-radius: 5px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .template-selection {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .template-card {
+            width: 45%;
+            background-color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .template-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .template-card h3 {
+            color: #454545;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #454545;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #808080;
+        }
+
+        .form-section {
+            margin-top: 20px;
+        }
+
+        .form-section input, .form-section textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .resume-details {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .resume-image {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        .standard-template .resume-section h4 {
+            font-size: 1.1rem;
+            color: #333;
+            font-weight: bold;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+
+        .standard-template .resume-section p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .modern-template .resume-section h4 {
+            font-size: 1.2rem;
+            color: #454545;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .modern-template .resume-section h4::before {
+            content: '⬤';
+            font-size: 0.6rem;
+            margin-right: 8px;
+            color: #454545;
+        }
+
+        .modern-template .resume-section p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+<div class="navbar">
+    <a href="#">PLACEMENT TRACKER</a>
+    <div>
+        <a href="index.html">Home</a>
+        <a href="student-dashboard.html">Back</a>
+        <a href="login.html">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+    <h2>Create Your Resume</h2>
+    <p>Choose a template to start building your resume:</p>
+
+    <div class="template-selection">
+        <div class="template-card">
+            <h3>Standard Template</h3>
+            <p>A professional and clean template, perfect for all job types.</p>
+            <a href="#" class="btn" onclick="selectTemplate('standard-template')">Choose Standard Template</a>
+        </div>
+
+        <div class="template-card">
+            <h3>Modern Template</h3>
+            <p>A stylish and contemporary template for creative roles.</p>
+            <a href="#" class="btn" onclick="selectTemplate('modern-template')">Choose Modern Template</a>
+        </div>
+    </div>
+
+    <div id="resume-builder" style="display:none;">
+        <h2>Start Building Your Resume</h2>
+        <label for="resume-name">Name your Resume:</label>
+        <input type="text" id="resume-name" placeholder="e.g., Software Engineer Resume">
+        <button class="btn" onclick="startBuilding()">Start Building</button>
+        <button class="btn" onclick="closeBuilder()">Close</button>
+    </div>
+
+    <div id="resume-form" class="form-section" style="display:none;">
+        <h3>Fill in Your Resume Details</h3>
+        
+        <!-- Profile Image Upload -->
+        <label for="profile-image">Upload Profile Image:</label>
+        <input type="file" id="profile-image" accept="image/*" onchange="previewImage(event)">
+        
+        <!-- Academic Details -->
+        <label for="academic-details">Academic Details:</label>
+        <textarea id="academic-details" placeholder="Enter your academic details"></textarea>
+
+        <!-- Technical Proficiency -->
+        <label for="technical-proficiency">Technical Proficiency:</label>
+        <textarea id="technical-proficiency" placeholder="Enter your technical skills"></textarea>
+
+        <!-- Work Experience -->
+        <label for="work-experience">Summer Internships/Work Experience:</label>
+        <textarea id="work-experience" placeholder="Enter your work experience"></textarea>
+
+        <!-- Projects -->
+        <label for="projects">Projects:</label>
+        <textarea id="projects" placeholder="Enter your projects"></textarea>
+
+        <!-- Extra Curricular Activities -->
+        <label for="extra-curricular">Extra Curricular Activities:</label>
+        <textarea id="extra-curricular" placeholder="Enter your extra curricular activities"></textarea>
+
+        <!-- Awards and Recognitions -->
+        <label for="awards">Awards and Recognitions:</label>
+        <textarea id="awards" placeholder="Enter your awards and recognitions"></textarea>
+
+        <!-- Certifications -->
+        <label for="certifications">Certifications:</label>
+        <textarea id="certifications" placeholder="Enter your certifications"></textarea>
+
+        <!-- Languages Known -->
+        <label for="languages">Languages Known:</label>
+        <textarea id="languages" placeholder="Enter the languages you know"></textarea>
+
+        <!-- Submit Button -->
+        <button class="btn" onclick="saveResume()">Save Resume</button>
+    </div>
+
+    <!-- Saved Resume Details -->
+    <div id="resume-details" class="resume-details">
+        <h3>Your Saved Resume</h3>
+        <div id="saved-profile-image-container" style="display:none;">
+            <img id="saved-profile-image" class="resume-image" src="#" alt="Profile Image">
+        </div>
+        <button class="btn" onclick="viewDetails()">View Details</button>
+        <button class="btn" onclick="deleteResume()">Delete Resume</button>
+
+        <div id="saved-resume"></div>
+    </div>
+</div>
+
+<script>
+    let selectedTemplate = '';
+
+    function selectTemplate(template) {
+        selectedTemplate = template;
+        document.getElementById('resume-builder').style.display = 'block';
+        document.body.classList.add(template);
+    }
+
+    function startBuilding() {
+        const resumeName = document.getElementById('resume-name').value;
+        if (resumeName) {
+            alert('Starting resume: ' + resumeName);
+            document.getElementById('resume-builder').style.display = 'none';
+            document.getElementById('resume-form').style.display = 'block';
+        } else {
+            alert('Please enter a name for your resume.');
+        }
+    }
+
+    function closeBuilder() {
+        document.getElementById('resume-builder').style.display = 'none';
+    }
+
+    function previewImage(event) {
+        const reader = new FileReader();
+        reader.onload = function() {
+            document.getElementById('saved-profile-image').src = reader.result;
+            document.getElementById('saved-profile-image-container').style.display = 'block';
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    function saveResume() {
+        const academicDetails = document.getElementById('academic-details').value;
+        const technicalProficiency = document.getElementById('technical-proficiency').value;
+        const workExperience = document.getElementById('work-experience').value;
+        const projects = document.getElementById('projects').value;
+        const extraCurricular = document.getElementById('extra-curricular').value;
+        const awards = document.getElementById('awards').value;
+        const certifications = document.getElementById('certifications').value;
+        const languages = document.getElementById('languages').value;
+
+        let savedResumeHTML = `<div class="resume-section">
+            <h4>Academic Details</h4>
+            <p>${academicDetails}</p>
+        </div>`;
+
+        savedResumeHTML += `<div class="resume-section">
+            <h4>Technical Proficiency</h4>
+            <p>${technicalProficiency}</p>
+        </div>`;
+
+        savedResumeHTML += `<div class="resume-section">
+            <h4>Summer Internships/Work Experience</h4>
+            <p>${workExperience}</p>
+        </div>`;
+
+        savedResumeHTML += `<div class="resume-section">
+            <h4>Projects</h4>
+            <p>${projects}</p>
+        </div>`;
+
+        savedResumeHTML += `<div class="resume-section">
+            <h4>Extra Curricular Activities</h4>
+            <p>${extraCurricular}</p>
+        </div>`;
+
+        savedResumeHTML += `<div class="resume-section">
+            <h4>Awards and Recognitions</h4>
+            <p>${awards}</p>
+        </div>`;
+
+        savedResumeHTML += `<div class="resume-section">
+            <h4>Certifications</h4>
+            <p>${certifications}</p>
+        </div>`;
+
+        savedResumeHTML += `<div class="resume-section">
+            <h4>Languages Known</h4>
+            <p>${languages}</p>
+        </div>`;
+
+        document.getElementById('saved-resume').innerHTML = savedResumeHTML;
+        document.getElementById('resume-form').style.display = 'none';
+        document.getElementById('resume-details').style.display = 'block';
+    }
+
+    function viewDetails() {
+        document.getElementById('saved-resume').style.display = 'block';
+    }
+
+    function deleteResume() {
+        document.getElementById('saved-resume').innerHTML = '';
+        document.getElementById('saved-profile-image-container').style.display = 'none';
+        document.getElementById('resume-details').style.display = 'none';
+    }
+</script>
+</body>
+</html>

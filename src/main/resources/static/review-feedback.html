@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Feedback - Employer Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #454545;
+        }
+
+        .feedback-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .feedback-item {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .feedback-item h3 {
+            color: #454545;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .feedback-item p {
+            margin: 10px 0;
+        }
+
+        .stars {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .stars span {
+            font-size: 24px;
+            cursor: pointer;
+            color: #d3d3d3;
+        }
+
+        .stars span.active {
+            color: #ff9900;
+        }
+
+        .feedback-item button {
+            background-color: #454545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .feedback-item button.delete {
+            background-color: #454545;
+        }
+
+        .feedback-item button.mark-reviewed {
+            background-color: #454545;
+        }
+
+        .feedback-item button:hover {
+            opacity: 0.9;
+        }
+
+        .feedback-form {
+            max-width: 900px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+
+        .feedback-form input, .feedback-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .feedback-form button {
+            background-color: #454545;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .feedback-form button:hover {
+            opacity: 0.9;
+        }
+        nav {
+            background-color: #454545;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        
+
+    </style>
+</head>
+<body>
+  <nav>
+        <h2>Employer Dashboard</h2>
+        <div>
+            <a href="index.html">Home</a>
+            <a href="employer-dashboard.html">Back</a>
+            <a href="login.html">logout</a>
+        </div>
+    </nav>
+
+    <h1>Review Feedback</h1>
+
+    <!-- Add New Feedback Form -->
+    <h2>Provide Feedback for an Applicant</h2>
+    <div class="feedback-form">
+        <form id="feedback-form">
+            <input type="text" id="applicant-name" placeholder="Applicant Name" required>
+            <textarea id="feedback" placeholder="Enter your feedback" rows="4" required></textarea>
+            <label for="rating">Rating:</label>
+            <div class="stars">
+                <span data-index="0">&#9733;</span>
+                <span data-index="1">&#9733;</span>
+                <span data-index="2">&#9733;</span>
+                <span data-index="3">&#9733;</span>
+                <span data-index="4">&#9733;</span>
+            </div>
+            <button type="submit">Submit Feedback</button>
+        </form>
+    </div>
+
+    <!-- List of Feedback -->
+    <div class="feedback-list" id="feedback-list">
+        <!-- Feedback items will be populated here dynamically -->
+    </div>
+
+    <script>
+        // Sample feedback data (up to 10 feedbacks)
+        const feedbacks = [
+            { applicantName: "John Doe", feedback: "Great technical skills but needs improvement in communication.", rating: 4, date: "2024-12-01" },
+            { applicantName: "Jane Smith", feedback: "Strong background in data science, but lacked experience in real-world projects.", rating: 3, date: "2024-12-02" },
+            { applicantName: "Alice Johnson", feedback: "Good problem-solving skills, could improve time management.", rating: 5, date: "2024-12-03" },
+            { applicantName: "Bob Lee", feedback: "Experienced, but sometimes struggled with attention to detail.", rating: 3, date: "2024-12-04" },
+            { applicantName: "Eve Davis", feedback: "Excellent leadership and teamwork abilities.", rating: 5, date: "2024-12-05" },
+            { applicantName: "Charlie Brown", feedback: "Very focused, but lacked in communication with team members.", rating: 4, date: "2024-12-06" },
+            { applicantName: "Grace Walker", feedback: "Great at collaborating, but could improve technical skills.", rating: 3, date: "2024-12-07" },
+            { applicantName: "Henry Green", feedback: "Great attitude, but lacks experience in certain areas.", rating: 4, date: "2024-12-08" },
+            { applicantName: "Ivy Clark", feedback: "Innovative, with strong technical abilities.", rating: 5, date: "2024-12-09" },
+            { applicantName: "Leo King", feedback: "Needs to work on attention to detail but has good potential.", rating: 2, date: "2024-12-10" }
+        ];
+
+        // Function to render feedback
+        function renderFeedback() {
+            const feedbackListContainer = document.getElementById('feedback-list');
+            feedbackListContainer.innerHTML = ''; // Clear previous feedback list
+            feedbacks.slice(0, 10).forEach((feedback, index) => {
+                const feedbackItem = document.createElement('div');
+                feedbackItem.className = 'feedback-item';
+                feedbackItem.innerHTML = `
+                    <h3>${feedback.applicantName}</h3>
+                    <p><strong>Feedback:</strong> ${feedback.feedback}</p>
+                    <p><strong>Rating:</strong> ${renderStars(feedback.rating)}</p>
+                    <p><strong>Date:</strong> ${feedback.date}</p>
+                    <button class="mark-reviewed" onclick="markReviewed(${index})">Mark as Reviewed</button>
+                    <button class="delete" onclick="deleteFeedback(${index})">Delete</button>
+                `;
+                feedbackListContainer.appendChild(feedbackItem);
+            });
+        }
+
+        // Function to render stars for the rating
+        function renderStars(rating) {
+            let stars = '';
+            for (let i = 0; i < 5; i++) {
+                stars += i < rating ? '&#9733;' : '&#9734;';
+            }
+            return stars;
+        }
+
+        // Function to mark feedback as reviewed
+        function markReviewed(index) {
+            alert(`Feedback for ${feedbacks[index].applicantName} has been marked as reviewed.`);
+        }
+
+        // Function to delete feedback
+        function deleteFeedback(index) {
+            const confirmation = confirm(`Are you sure you want to delete the feedback for ${feedbacks[index].applicantName}?`);
+            if (confirmation) {
+                feedbacks.splice(index, 1); // Remove feedback from the array
+                renderFeedback(); // Re-render feedback list
+            }
+        }
+
+        // Handle form submission for submitting new feedback
+        document.getElementById('feedback-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const rating = document.querySelector('.stars span.active') ? document.querySelector('.stars span.active').getAttribute('data-index') + 1 : 0;
+            if (rating === 0) {
+                alert("Please provide a rating.");
+                return;
+            }
+
+            const newFeedback = {
+                applicantName: document.getElementById('applicant-name').value,
+                feedback: document.getElementById('feedback').value,
+                rating: rating,
+                date: new Date().toISOString().split('T')[0] // Get current date in YYYY-MM-DD format
+            };
+            feedbacks.push(newFeedback);
+            renderFeedback(); // Re-render feedback list with new feedback
+            document.getElementById('feedback-form').reset(); // Reset form
+            resetStars(); // Reset star rating UI
+        });
+
+        // Function to handle star rating interaction
+        document.querySelectorAll('.stars span').forEach(star => {
+            star.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-index'));
+                setRating(index + 1);
+            });
+        });
+
+        // Function to set the rating based on selected stars
+        function setRating(rating) {
+            document.querySelectorAll('.stars span').forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
+
+        // Function to reset stars (e.g., after submitting feedback)
+        function resetStars() {
+            document.querySelectorAll('.stars span').forEach(star => {
+                star.classList.remove('active');
+            });
+        }
+
+        // Initial render of feedback list
+        renderFeedback();
+    </script>
+
+</body>
+</html>

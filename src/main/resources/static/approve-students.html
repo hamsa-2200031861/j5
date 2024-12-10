@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Approve Students</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .students-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    .student-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+    .student-card:hover {
+      transform: translateY(-3px);
+    }
+    .student-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+      background-color: #454545;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2em;
+    }
+    .student-name {
+      font-size: 1em;
+      font-weight: bold;
+      color: #333;
+      margin: 8px 0;
+    }
+    .student-status {
+      font-size: 0.8em;
+      margin-bottom: 10px;
+      color: #666;
+    }
+    .approve-btn {
+      padding: 8px 12px;
+      background-color: #454545;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9em;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+    .approve-btn:hover {
+      background-color: #808080;
+      transform: scale(1.05);
+    }
+    .approve-btn:disabled {
+      background-color: #808080;
+      cursor: not-allowed;
+    }
+    .approved-section {
+      margin-top: 40px;
+    }
+    .approved-title {
+      font-size: 1.3em;
+      font-weight: bold;
+      text-align: center;
+      color: #454545;
+      margin-bottom: 20px;
+    }
+     .back-btn {
+      padding: 8px 10px;
+      background-color: #454545;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 1em;
+      transition: background-color 0.3s ease;
+      top: -50px; 
+    }
+    .back-btn:hover {
+      background-color: #808080;
+    }
+    .fade-out {
+      animation: fadeOut 0.5s forwards;
+    }
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Approve Students</h1>
+      <p>Review the list of students and approve them as needed.</p>
+    </div>
+
+	<div class="back-button">
+      <a href="admin-dashboard.html" class="back-btn">Back to Admin Page</a>
+    </div>
+	
+    <!-- Students List -->
+    <div class="students-list" id="pending-students">
+      <div class="student-card" id="student-1">
+        <div class="student-avatar">H</div>
+        <div class="student-name">Harshitha</div>
+        <div class="student-status">Status: <span id="status-1">Pending</span></div>
+        <button class="approve-btn" onclick="approveStudent('student-1', 'status-1', 'Harshitha')">Approve</button>
+      </div>
+      <div class="student-card" id="student-2">
+        <div class="student-avatar">N</div>
+        <div class="student-name">Niharika</div>
+        <div class="student-status">Status: <span id="status-2">Pending</span></div>
+        <button class="approve-btn" onclick="approveStudent('student-2', 'status-2', 'Niharika')">Approve</button>
+      </div>
+      <div class="student-card" id="student-3">
+        <div class="student-avatar">H</div>
+        <div class="student-name">Hamsa</div>
+        <div class="student-status">Status: <span id="status-3">Pending</span></div>
+        <button class="approve-btn" onclick="approveStudent('student-3', 'status-3', 'Hamsa')">Approve</button>
+      </div>
+      <div class="student-card" id="student-4">
+        <div class="student-avatar">T</div>
+        <div class="student-name">Thejomai</div>
+        <div class="student-status">Status: <span id="status-4">Pending</span></div>
+        <button class="approve-btn" onclick="approveStudent('student-4', 'status-4', 'Thejomai')">Approve</button>
+      </div>
+      <div class="student-card" id="student-5">
+        <div class="student-avatar">H</div>
+        <div class="student-name">Hema</div>
+        <div class="student-status">Status: <span id="status-5">Pending</span></div>
+        <button class="approve-btn" onclick="approveStudent('student-5', 'status-5', 'Hema')">Approve</button>
+      </div>
+      <div class="student-card" id="student-6">
+        <div class="student-avatar">K</div>
+        <div class="student-name">Keerthana</div>
+        <div class="student-status">Status: <span id="status-6">Pending</span></div>
+        <button class="approve-btn" onclick="approveStudent('student-6', 'status-6', 'Keerthana')">Approve</button>
+      </div>
+      <div class="student-card" id="student-7">
+        <div class="student-avatar">S</div>
+        <div class="student-name">Sushma</div>
+        <div class="student-status">Status: <span id="status-7">Pending</span></div>
+        <button class="approve-btn" onclick="approveStudent('student-7', 'status-7', 'Sushma')">Approve</button>
+      </div>
+    </div>
+
+    <!-- Approved Students Section -->
+    <div class="approved-section">
+      <div class="approved-title">Approved Students</div>
+      <div class="students-list" id="approved-students">
+        <!-- Approved students will appear here -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function approveStudent(studentId, statusId, studentName) {
+      const studentCard = document.getElementById(studentId);
+      const statusElement = document.getElementById(statusId);
+      const approvedList = document.getElementById("approved-students");
+
+      // Update the status text
+      statusElement.textContent = "Approved";
+      statusElement.style.color = "#808080";
+
+      // Disable the button
+      const approveButton = studentCard.querySelector(".approve-btn");
+      approveButton.disabled = true;
+      approveButton.textContent = "Approved";
+
+      // Add fade-out effect
+      studentCard.classList.add("fade-out");
+
+      // Move the card to the approved list after fade-out
+      setTimeout(() => {
+        approvedList.appendChild(studentCard);
+        studentCard.classList.remove("fade-out");
+        alert(`${studentName} has been approved.`);
+      }, 500);
+    }
+  </script>
+</body>
+</html>

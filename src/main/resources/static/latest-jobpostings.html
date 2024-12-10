@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Manage Job Postings</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      width: 80%;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 20px;
+      padding: 10px 20px;
+      background-color: #454545;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    .back-btn:hover {
+      background-color: #808080;
+    }
+    .job-listing, .add-job-form {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .job-title {
+      font-size: 1.6em;
+      font-weight: bold;
+      color: #333;
+    }
+    .company-name {
+      font-size: 1.2em;
+      color: #555;
+    }
+    .location, .salary {
+      font-size: 1em;
+      color: #777;
+    }
+    .apply-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #454545;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+    .apply-btn:hover {
+      background-color: #808080;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+    .submit-btn {
+      background-color: #454545;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .submit-btn:hover {
+      background-color: #808080;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Back Button -->
+    <a href="admin-dashboard.html" class="back-btn">Back to Admin Page</a>
+
+    <div class="header">
+      <h1>Manage Job Postings</h1>
+      <p>Admins can add new job postings to the platform below.</p>
+    </div>
+
+    <!-- Form for Adding New Job Post -->
+    <div class="add-job-form">
+      <h2>Add a New Job Posting</h2>
+      <form id="add-job-form">
+        <div class="form-group">
+          <label for="job-title">Job Title</label>
+          <input type="text" id="job-title" name="job-title" placeholder="Enter job title" required>
+        </div>
+        <div class="form-group">
+          <label for="company-name">Company Name</label>
+          <input type="text" id="company-name" name="company-name" placeholder="Enter company name" required>
+        </div>
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input type="text" id="location" name="location" placeholder="Enter job location" required>
+        </div>
+        <div class="form-group">
+          <label for="salary">Salary</label>
+          <input type="text" id="salary" name="salary" placeholder="Enter salary range" required>
+        </div>
+        <div class="form-group">
+          <label for="apply-link">Application Link</label>
+          <input type="url" id="apply-link" name="apply-link" placeholder="Enter application URL" required>
+        </div>
+        <button type="submit" class="submit-btn">Add Job Posting</button>
+      </form>
+    </div>
+
+    <!-- Existing Job Postings -->
+    <div class="header">
+      <h2>Existing Job Postings</h2>
+      <p>These are the current job postings on the platform.</p>
+    </div>
+
+    <!-- Job Postings List -->
+    <div class="job-listing">
+      <div class="job-title">Software Engineer</div>
+      <div class="company-name">ABC Tech Solutions</div>
+      <div class="location">Location: New York, NY</div>
+      <div class="salary">Salary: $85,000 - $110,000/year</div>
+      <a href="apply.html" class="apply-btn">Apply Now</a>
+    </div>
+
+    <div class="job-listing">
+      <div class="job-title">Data Analyst</div>
+      <div class="company-name">XYZ Data Inc.</div>
+      <div class="location">Location: Remote</div>
+      <div class="salary">Salary: $70,000 - $90,000/year</div>
+      <a href="apply.html" class="apply-btn">Apply Now</a>
+    </div>
+
+    <div class="job-listing">
+      <div class="job-title">Full Stack Developer</div>
+      <div class="company-name">Innovative Web Solutions</div>
+      <div class="location">Location: San Francisco, CA</div>
+      <div class="salary">Salary: $100,000 - $130,000/year</div>
+      <a href="apply.html" class="apply-btn">Apply Now</a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('add-job-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      // Get form data
+      const jobTitle = document.getElementById('job-title').value;
+      const companyName = document.getElementById('company-name').value;
+      const location = document.getElementById('location').value;
+      const salary = document.getElementById('salary').value;
+      const applyLink = document.getElementById('apply-link').value;
+
+      // Create a new job listing element
+      const jobListing = document.createElement('div');
+      jobListing.classList.add('job-listing');
+      jobListing.innerHTML = `
+        <div class="job-title">${jobTitle}</div>
+        <div class="company-name">${companyName}</div>
+        <div class="location">Location: ${location}</div>
+        <div class="salary">Salary: ${salary}</div>
+        <a href="${applyLink}" class="apply-btn">Apply Now</a>
+      `;
+
+      // Append the new job listing to the existing job postings
+      document.body.appendChild(jobListing);
+
+      // Reset the form
+      document.getElementById('add-job-form').reset();
+    });
+  </script>
+</body>
+</html>

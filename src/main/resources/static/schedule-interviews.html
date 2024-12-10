@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Interviews</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #454545;
+        }
+
+        .applicant-list, .scheduled-interviews {
+            max-width: 800px;
+            margin: auto;
+            margin-bottom: 30px;
+        }
+
+        .applicant-item, .interview-item {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .applicant-item h3, .interview-item h3 {
+            color: #454545;
+            margin-bottom: 10px;
+        }
+
+        .applicant-item p, .interview-item p {
+            margin: 5px 0;
+        }
+
+        .applicant-item button, .interview-item button {
+            background-color: #454545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 12px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .applicant-item button.schedule, .interview-item button.reschedule, .interview-item button.cancel {
+            background-color: #454545;
+        }
+
+        .interview-item button.cancel {
+            background-color: #454545;
+        }
+
+        .applicant-item button:hover, .interview-item button:hover {
+            opacity: 0.9;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container input, .form-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-container button {
+            background-color: #454545;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            opacity: 0.9;
+        }
+        nav {
+            background-color: #454545;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        
+    </style>
+</head>
+<body>
+  <nav>
+        <h2>Employer Dashboard</h2>
+        <div>
+            <a href="index.html">Home</a>
+            <a href="employer-dashboard.html">Back</a>
+            <a href="login.html">logout</a>
+        </div>
+    </nav>
+
+    <h1>Schedule Interviews</h1>
+
+    <!-- Shortlisted Applicants -->
+    <div class="applicant-list">
+        <h2>Shortlisted Applicants</h2>
+
+        <div class="applicant-item">
+            <h3>John Doe</h3>
+            <p><strong>Email:</strong> john.doe@example.com</p>
+            <p><strong>CGPA:</strong> 8.5</p>
+            <button class="schedule" onclick="scheduleInterview('John Doe')">Schedule Interview</button>
+        </div>
+
+        <div class="applicant-item">
+            <h3>Jane Smith</h3>
+            <p><strong>Email:</strong> jane.smith@example.com</p>
+            <p><strong>CGPA:</strong> 9.0</p>
+            <button class="schedule" onclick="scheduleInterview('Jane Smith')">Schedule Interview</button>
+        </div>
+    </div>
+
+    <!-- Interview Scheduling Form -->
+    <div class="form-container" id="interview-form-container" style="display:none;">
+        <h2>Schedule Interview for <span id="selected-applicant-name"></span></h2>
+        <form id="interview-form">
+            <input type="datetime-local" id="interview-datetime" required>
+            <textarea id="interview-notes" placeholder="Add interview notes (optional)" rows="4"></textarea>
+            <button type="submit">Confirm Interview</button>
+        </form>
+    </div>
+
+    <!-- Scheduled Interviews -->
+    <div class="scheduled-interviews">
+        <h2>Scheduled Interviews</h2>
+
+        <div class="interview-item">
+            <h3>John Doe</h3>
+            <p><strong>Scheduled Date and Time:</strong> 2024-12-15 10:00 AM</p>
+            <p><strong>Notes:</strong> Bring portfolio and previous project details.</p>
+            <button class="reschedule" onclick="rescheduleInterview('John Doe')">Reschedule</button>
+            <button class="cancel" onclick="cancelInterview('John Doe')">Cancel</button>
+        </div>
+
+        <div class="interview-item">
+            <h3>Jane Smith</h3>
+            <p><strong>Scheduled Date and Time:</strong> 2024-12-16 02:00 PM</p>
+            <p><strong>Notes:</strong> Prepare for technical interview.</p>
+            <button class="reschedule" onclick="rescheduleInterview('Jane Smith')">Reschedule</button>
+            <button class="cancel" onclick="cancelInterview('Jane Smith')">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        function scheduleInterview(applicantName) {
+            document.getElementById('interview-form-container').style.display = 'block';
+            document.getElementById('selected-applicant-name').innerText = applicantName;
+        }
+
+        function rescheduleInterview(applicantName) {
+            alert(`Rescheduling interview for: ${applicantName}`);
+            // You can add logic to update the scheduled interview details
+        }
+
+        function cancelInterview(applicantName) {
+            const confirmation = confirm(`Are you sure you want to cancel the interview for ${applicantName}?`);
+            if (confirmation) {
+                alert(`Interview for ${applicantName} has been canceled.`);
+                // You can add logic to remove or cancel the interview from the system
+            }
+        }
+
+        // Handle form submission for confirming the interview
+        document.getElementById('interview-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const applicantName = document.getElementById('selected-applicant-name').innerText;
+            const interviewDate = document.getElementById('interview-datetime').value;
+            const interviewNotes = document.getElementById('interview-notes').value;
+
+            alert(`Interview for ${applicantName} has been scheduled on ${interviewDate}`);
+            // Here, you can send this data to your server to save the interview details
+
+            // Reset the form and hide the form container after submission
+            document.getElementById('interview-form').reset();
+            document.getElementById('interview-form-container').style.display = 'none';
+        });
+    </script>
+
+</body>
+</html>
